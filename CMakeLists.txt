@@ -21,7 +21,7 @@ find_package(tl-ranges CONFIG REQUIRED)
 include(${SR_CMAKE}/get_libtorch.cmake)
 
 add_library(DLBlueprint STATIC compile.cpp variable.cpp blueprint.cpp)
-target_include_directories(DLBlueprint PRIVATE .)
+target_include_directories(DLBlueprint PUBLIC .)
 target_link_libraries(DLBlueprint PUBLIC torch yaml-cpp::yaml-cpp PRIVATE fmt::fmt)
 
 #add_subdirectory(tensorboard_logger)

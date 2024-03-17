@@ -2,14 +2,14 @@
 //
 // Created by dewe on 3/17/24.
 //
-#include "node.h"
+#include "blueprint.h"
 #include "variable.h"
 
 
 namespace dlb {
     using FeatureInput = torch::OrderedDict<std::string, Shape>;
 
-    struct Blueprint Build(const FeatureInput &inputShape,
+    Blueprint Build(const FeatureInput &inputShape,
                            const YAML::Node &config);
 
     Node CompileNode(std::string const &parentName,
