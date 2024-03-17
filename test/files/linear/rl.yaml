@@ -1,0 +1,14 @@
+shared:
+  output:FCNN:
+    dims: [128]
+    activations: tanh
+
+  actor:
+    output:FCNN:
+      dims: [ 64, 64]
+      activations: sigmoid
+
+  critic:
+    output:FCNN:
+      dims: [ 64, 64]
+      activations: sigmoid

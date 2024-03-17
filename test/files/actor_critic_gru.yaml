@@ -1,0 +1,24 @@
+shared:
+  <modules>:
+    output:GRU:
+      hidden_size: 128
+      return_all_seq: false
+
+  <children>:
+    actor:
+      <modules>:
+        feature:FCNN:
+          dims: [ 64, 64]
+          activations: tanh
+
+        action:Linear:
+          in_features: 2
+
+    critic:
+      <modules>:
+        output:FCNN:
+          dims: [ 64, 32 ]
+          activations: tanh
+
+        value:Linear:
+          in_features: 1

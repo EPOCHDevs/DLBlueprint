@@ -1,0 +1,1 @@
+target_sources(DLBlueprint PRIVATE resnet.cpp)

@@ -1,0 +1,30 @@
+top:
+  return:FCNN:
+    dims: [ 64, 64]
+    activations: tanh
+    weight_init_type: orthogonal
+    bias_init_type: constant
+    weight_init_param: 1.414213562
+    bias_init_param: 0
+    new_bias: true
+---
+top:
+  return:FCNN:
+    dims: [ 64, 32]
+    activations: [sigmoid, tanh]
+    weight_init_type: orthogonal
+    bias_init_type: constant
+    weight_init_param: 1.414213562
+    bias_init_param: 0
+    new_bias: [true, false]
+
+---
+top:
+  return:FCNN:
+    dims: [ 64, 32 ]
+    activations: [ sigmoid ]
+    weight_init_type: orthogonal
+    bias_init_type: constant
+    weight_init_param: 1.414213562
+    bias_init_param: 0
+    new_bias: [ true, false ]

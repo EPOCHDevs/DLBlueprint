@@ -1,0 +1,26 @@
+top:
+  return:GRU:
+    hidden_size: 64
+    weight_init_type: orthogonal
+    bias_init_type: constant
+    weight_init_param: 1
+    bias_init_param: 0
+    new_bias: true
+---
+top:
+  return:RNN:
+    hidden_size: 64
+    weight_init_type: orthogonal
+    bias_init_type: constant
+    weight_init_param: 1
+    bias_init_param: 0
+    new_bias: true
+---
+top:
+  return:LSTM:
+    hidden_size: 64
+    weight_init_type: orthogonal
+    bias_init_type: constant
+    weight_init_param: 1
+    bias_init_param: 0
+    new_bias: true
