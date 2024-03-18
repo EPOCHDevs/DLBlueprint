@@ -2,6 +2,7 @@
 // Created by dewe on 3/12/24.
 //
 #include "base.h"
+#include "dl_blueprint/common/defs.h"
 
 
 namespace dlb {

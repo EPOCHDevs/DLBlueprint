@@ -20,10 +20,10 @@ const dlb::TensorDict singleDIMTensor{{"box", torch::ones({BATCH_SIZE, SEQUENCE_
 TEST_CASE("Training files/actor_critic_gru.yaml")
 {
     const YAML::Node config = YAML::LoadFile(TEST_FILES / "actor_critic_gru.yaml");
-    dlb::Blueprint blueprint = dlb::Build(singleDIMInput, config);
-    blueprint.reset_state(BATCH_SIZE);
+    auto blueprint = dlb::Build(singleDIMInput, config);
+    blueprint->reset_state(BATCH_SIZE);
 
-    auto compiledModule = blueprint.named_children();
+    auto compiledModule = blueprint->named_children();
     REQUIRE(compiledModule.size() == 3);
 
     std::shared_ptr<torch::nn::Module> &shared = compiledModule["shared"];
@@ -33,7 +33,7 @@ TEST_CASE("Training files/actor_critic_gru.yaml")
     SECTION("Verify Forward")
     {
         dlb::TensorDict output = singleDIMTensor;
-        blueprint.forward(output);
+        blueprint->forward(output);
 
         REQUIRE(output[0].key() == "box");
         REQUIRE(output[1].key() == "shared");

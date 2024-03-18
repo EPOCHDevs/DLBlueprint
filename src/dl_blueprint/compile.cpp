@@ -7,10 +7,11 @@
 
 namespace dlb {
 
-    Blueprint Build(const FeatureInput &inputShape,
+    std::unique_ptr<Blueprint> Build(const FeatureInput &inputShape,
                const YAML::Node &config) {
         AssertIfTrue(config.size() == 1 && config.IsMap(), "only one root is permitted");
-        return {CompileNode(config.begin()->first.as<std::string>(), config.begin()->second, inputShape)};
+        return std::make_unique<Blueprint>(
+                CompileNode(config.begin()->first.as<std::string>(), config.begin()->second, inputShape));
     }
 
     Node CompileNode(std::string const &moduleName,

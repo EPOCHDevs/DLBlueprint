@@ -9,7 +9,7 @@
 namespace dlb {
     using FeatureInput = torch::OrderedDict<std::string, Shape>;
 
-    Blueprint Build(const FeatureInput &inputShape,
+    std::unique_ptr<Blueprint> Build(const FeatureInput &inputShape,
                            const YAML::Node &config);
 
     Node CompileNode(std::string const &parentName,
