@@ -2,8 +2,8 @@
 //
 // Created by dewe on 3/13/24.
 //
-#include "models/base.h"
-#include "options/options.h"
+#include "dl_blueprint/models/base.h"
+#include "dl_blueprint/options/options.h"
 
 
 namespace dlb {

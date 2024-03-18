@@ -2,8 +2,8 @@
 //
 // Created by dewe on 3/17/24.
 //
-#include "blueprint.h"
-#include "variable.h"
+#include "dl_blueprint/blueprint.h"
+#include "dl_blueprint/variable.h"
 
 
 namespace dlb {

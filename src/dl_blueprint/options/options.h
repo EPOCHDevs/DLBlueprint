@@ -4,7 +4,7 @@
 //
 #include "base.h"
 #include "vector"
-#include "models/vision/options.h"
+#include "dl_blueprint/models/vision/options.h"
 #include "io/functionals.h"
 #include "io/linear.h"
 #include "io/sparse.h"

@@ -2,7 +2,7 @@
 // Created by dewe on 3/12/24.
 //
 #include "resnet.h"
-#include "common/defs.h"
+#include "dl_blueprint/common/defs.h"
 
 
 namespace torch::nn {

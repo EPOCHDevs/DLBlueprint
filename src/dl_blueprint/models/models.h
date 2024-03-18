@@ -2,15 +2,15 @@
 //
 // Created by dewe on 3/12/24.
 //
-#include "options/options.h"
-#include "models/base.h"
-#include "models/vision/resnet.h"
-#include "models/sequence/recurrent_net.h"
+#include "dl_blueprint/options/options.h"
+#include "base.h"
+#include "vision/resnet.h"
+#include "sequence/recurrent_net.h"
 
-#include "factory/linear.h"
-#include "factory/sparse.h"
-#include "factory/recurrent.h"
-#include "factory/vision.h"
+#include "dl_blueprint/factory/linear.h"
+#include "dl_blueprint/factory/sparse.h"
+#include "dl_blueprint/factory/recurrent.h"
+#include "dl_blueprint/factory/vision.h"
 
 
 namespace dlb

@@ -4,8 +4,8 @@
 //
 #include "yaml-cpp/yaml.h"
 #include "optional"
-#include "common/defs.h"
-#include "options/base.h"
+#include "dl_blueprint/common/defs.h"
+#include "dl_blueprint/options/base.h"
 #include "tl/to.hpp"
 
 

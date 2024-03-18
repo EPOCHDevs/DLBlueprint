@@ -3,9 +3,11 @@
 //
 #include "catch.hpp"
 #include "filesystem"
-#include "compile.h"
-#include "blueprint.h"
-#include "models/models.h"
+#include "dl_blueprint/compile.h"
+#include "dl_blueprint/blueprint.h"
+#include "dl_blueprint/models/models.h"
+#include "dl_blueprint/options/base.h"
+
 
 const std::filesystem::path TEST_FILES{__TEST_FILES__};
 constexpr int64_t BATCH_SIZE = 256;

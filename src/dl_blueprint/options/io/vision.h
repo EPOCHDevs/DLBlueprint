@@ -3,7 +3,7 @@
 // Created by dewe on 3/13/24.
 //
 #include "../base.h"
-#include "models/vision/options.h"
+#include "dl_blueprint/models/vision/options.h"
 
 
 namespace dlb {

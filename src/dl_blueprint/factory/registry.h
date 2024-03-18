@@ -3,7 +3,7 @@
 // Created by dewe on 3/14/24.
 //
 #include "yaml-cpp/yaml.h"
-#include "common/defs.h"
+#include "dl_blueprint/common/defs.h"
 
 
 namespace dlb {

@@ -7,7 +7,7 @@
 #include "yaml-cpp/yaml.h"
 #include "optional"
 #include "torch/torch.h"
-#include "common/defs.h"
+#include "dl_blueprint/common/defs.h"
 #include "yaml-cpp/yaml.h"
 
 

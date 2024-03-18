@@ -3,8 +3,8 @@
 // Created by dewe on 3/12/24.
 //
 #include "torch/torch.h"
-#include "options/base.h"
-#include "factory/registry.h"
+#include "dl_blueprint/options/base.h"
+#include "dl_blueprint/factory/registry.h"
 
 
 namespace dlb {
