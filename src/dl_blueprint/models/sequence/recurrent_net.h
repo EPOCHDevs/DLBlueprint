@@ -36,10 +36,10 @@ namespace dlb {
         void initialize_hidden_states(int64_t numLayers, int64_t batchSize, int64_t hiddenSize,
                                       torch::TensorOptions const &options) {
             if constexpr (isLSTM) {
-                hx = Tensor2{register_parameter("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options)),
-                             register_parameter("c0", torch::zeros({numLayers, batchSize, hiddenSize}, options))};
+                hx = Tensor2{register_buffer("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options)),
+                             register_buffer("c0", torch::zeros({numLayers, batchSize, hiddenSize}, options))};
             } else {
-                hx = register_parameter("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options));
+                hx = register_buffer("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options));
             }
         }
 
