@@ -19,7 +19,14 @@ namespace dlb {
     public:
         RecurrentNetImpl(OptionType options
         ) : m_model(register_module(class_name, TorchModule{options.impl.batch_first(true)})),
-            m_options(std::move(options)) {}
+            m_options(std::move(options)) {
+            if constexpr (isLSTM) {
+                hx = Tensor2{register_buffer("h0", torch::Tensor{}),
+                             register_buffer("c0", torch::Tensor{})};
+            } else {
+                hx = register_buffer("h0", torch::Tensor{});
+            }
+        }
 
         bool has_state() final {
             return true;
@@ -69,10 +76,10 @@ namespace dlb {
                                       torch::TensorOptions const &options) {
             m_batchSize = batchSize;
             if constexpr (isLSTM) {
-                hx = Tensor2{register_buffer("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options)),
-                             register_buffer("c0", torch::zeros({numLayers, batchSize, hiddenSize}, options))};
+                hx = Tensor2{torch::zeros({numLayers, batchSize, hiddenSize}, options),
+                             torch::zeros({numLayers, batchSize, hiddenSize}, options)};
             } else {
-                hx = register_buffer("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options));
+                hx = torch::zeros({numLayers, batchSize, hiddenSize}, options);
             }
         }
     };
