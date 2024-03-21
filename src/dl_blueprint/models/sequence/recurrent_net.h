@@ -41,16 +41,6 @@ namespace dlb {
                                      weightOptions.requires_grad(std::nullopt));
         }
 
-        void to(torch::Device device, bool non_blocking) final {
-            m_model->to(device, non_blocking);
-            if constexpr (isLSTM) {
-                std::get<0>(hx).to(device, non_blocking);
-                std::get<1>(hx).to(device, non_blocking);
-            } else {
-                hx.to(device, non_blocking);
-            }
-        }
-
         torch::Tensor forward(const torch::Tensor &x) override {
             torch::Tensor result;
             repackage_hidden();
