@@ -33,21 +33,11 @@ namespace dlb {
             return class_name;
         }
 
-        void initialize_hidden_states(int64_t numLayers, int64_t batchSize, int64_t hiddenSize,
-                                      torch::TensorOptions const &options) {
-            if constexpr (isLSTM) {
-                hx = Tensor2{torch::zeros({numLayers, batchSize, hiddenSize}, options),
-                             torch::zeros({numLayers, batchSize, hiddenSize}, options)};
-            } else {
-                hx = torch::zeros({numLayers, batchSize, hiddenSize}, options);
-            }
-        }
-
         void reset_state(int64_t batchSize) final {
             const auto &options = m_model->options;
             initialize_hidden_states(options.num_layers() * (options.bidirectional() ? 2 : 1), batchSize,
                                      options.hidden_size(),
-                                     m_model->all_weights().front().options());
+                                     m_model->all_weights().front().options().requires_grad(false));
         }
 
         void to(torch::Device device, bool non_blocking) final {
@@ -70,5 +60,15 @@ namespace dlb {
         TorchModule m_model;
         HiddenStateType hx;
         OptionType m_options;
+
+        void initialize_hidden_states(int64_t numLayers, int64_t batchSize, int64_t hiddenSize,
+                                      torch::TensorOptions const &options) {
+            if constexpr (isLSTM) {
+                hx = Tensor2{torch::zeros({numLayers, batchSize, hiddenSize}, options),
+                             torch::zeros({numLayers, batchSize, hiddenSize}, options)};
+            } else {
+                hx = torch::zeros({numLayers, batchSize, hiddenSize}, options);
+            }
+        }
     };
 }
