@@ -43,6 +43,7 @@ namespace dlb {
 
         torch::Tensor forward(const torch::Tensor &x) override {
             torch::Tensor result;
+            AssertIfTrueF(x.size(0) == m_batchSize, "{} != {}", x.size(0), m_batchSize);
             repackage_hidden();
             std::tie(result, hx) = m_model->forward(x, hx);
             return m_options.return_all_seq ? result : result.select(1, -1);
@@ -52,6 +53,7 @@ namespace dlb {
         TorchModule m_model;
         HiddenStateType hx;
         OptionType m_options;
+        int64_t m_batchSize{};
 
         void repackage_hidden() {
             if constexpr (isLSTM) {
@@ -65,6 +67,7 @@ namespace dlb {
 
         void initialize_hidden_states(int64_t numLayers, int64_t batchSize, int64_t hiddenSize,
                                       torch::TensorOptions const &options) {
+            m_batchSize = batchSize;
             if constexpr (isLSTM) {
                 hx = Tensor2{register_buffer("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options)),
                              register_buffer("c0", torch::zeros({numLayers, batchSize, hiddenSize}, options))};
