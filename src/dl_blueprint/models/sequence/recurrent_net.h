@@ -34,10 +34,11 @@ namespace dlb {
         }
 
         void reset_state(int64_t batchSize) final {
-            const auto &options = m_model->options;
+            auto options = m_model->options;
+            torch::TensorOptions weightOptions = m_model->all_weights().front().options();
             initialize_hidden_states(options.num_layers() * (options.bidirectional() ? 2 : 1), batchSize,
                                      options.hidden_size(),
-                                     m_model->all_weights().front().options().requires_grad(false));
+                                     weightOptions.requires_grad(std::nullopt));
         }
 
         void to(torch::Device device, bool non_blocking) final {
@@ -52,6 +53,7 @@ namespace dlb {
 
         torch::Tensor forward(const torch::Tensor &x) override {
             torch::Tensor result;
+            repackage_hidden();
             std::tie(result, hx) = m_model->forward(x, hx);
             return m_options.return_all_seq ? result : result.select(1, -1);
         }
@@ -61,13 +63,23 @@ namespace dlb {
         HiddenStateType hx;
         OptionType m_options;
 
+        void repackage_hidden() {
+            if constexpr (isLSTM) {
+                hx = {
+                        std::get<0>(hx).detach(), std::get<1>(hx).detach()
+                };
+            } else {
+                hx = hx.detach();
+            }
+        }
+
         void initialize_hidden_states(int64_t numLayers, int64_t batchSize, int64_t hiddenSize,
                                       torch::TensorOptions const &options) {
             if constexpr (isLSTM) {
-                hx = Tensor2{torch::zeros({numLayers, batchSize, hiddenSize}, options),
-                             torch::zeros({numLayers, batchSize, hiddenSize}, options)};
+                hx = Tensor2{register_buffer("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options)),
+                             register_buffer("c0", torch::zeros({numLayers, batchSize, hiddenSize}, options))};
             } else {
-                hx = torch::zeros({numLayers, batchSize, hiddenSize}, options);
+                hx = register_buffer("h0", torch::zeros({numLayers, batchSize, hiddenSize}, options));
             }
         }
     };

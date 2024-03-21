@@ -24,6 +24,7 @@ TEST_CASE("Training files/actor_critic_gru.yaml")
     blueprint->reset_state(BATCH_SIZE);
 
     auto compiledModule = blueprint->named_children();
+    auto opt = torch::optim::Adam{blueprint->parameters()};
     REQUIRE(compiledModule.size() == 3);
 
     std::shared_ptr<torch::nn::Module> &shared = compiledModule["shared"];
@@ -32,8 +33,17 @@ TEST_CASE("Training files/actor_critic_gru.yaml")
 
     SECTION("Verify Forward")
     {
-        dlb::TensorDict output = singleDIMTensor;
-        blueprint->forward(output);
+        dlb::TensorDict output;
+        for (int i = 0;  i < 5; i++)
+        {
+            output = singleDIMTensor;
+
+            opt.zero_grad();
+            blueprint->forward(output);
+            auto loss = output["actor"].mean();
+            loss.backward();
+            opt.step();
+        }
 
         REQUIRE(output[0].key() == "box");
         REQUIRE(output[1].key() == "shared");
