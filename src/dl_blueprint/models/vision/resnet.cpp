@@ -13,9 +13,9 @@ namespace torch::nn {
               conv2(register_module("conv2", conv3x3(options.planes, options.planes))),
               bn2(register_module("bn2", options.norm_layer(options.planes))),
               stride(options.stride) {
-        AssertIfFalse(options.groups != 1 or options.base_width != 64,
+        DL_AssertIfFalse(options.groups != 1 or options.base_width != 64,
                       "ValueError: BasicBlock only supports groups=1 and base_width=64");
-        AssertIfFalse(options.dilation > 1,
+        DL_AssertIfFalse(options.dilation > 1,
                       "NotImplementedError: Dilation > 1 not supported in BasicBlock");
 
         if (options.downsample) {

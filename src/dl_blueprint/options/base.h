@@ -30,11 +30,11 @@ namespace dlb {
         }
 
         static void ValidateBatchSize(int64_t batchSize, Shape const &inputShape) {
-            AssertIfTrue(inputShape.front() == batchSize, "InvalidBatchSize");
+            DL_AssertIfTrue(inputShape.front() == batchSize, "InvalidBatchSize");
         }
 
         static void ValidateInputDim(int64_t dim, Shape const &inputShape) {
-            AssertIfTrue(inputShape.size() == dim, "InvalidInputDim");
+            DL_AssertIfTrue(inputShape.size() == dim, "InvalidInputDim");
         }
 
         virtual Shape GetOutputSize(Shape const &inputShape) const = 0;

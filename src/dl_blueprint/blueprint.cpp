@@ -9,7 +9,7 @@ namespace dlb {
 
     void Blueprint::forward(TensorDict &tensors) {
         BFSVisit([&](NodeImpl *node) {
-            AssertIfFalse(tensors.contains(node->key), "Fatal Error: Potential Multiple pass of the same module.");
+            DL_AssertIfFalse(tensors.contains(node->key), "Fatal Error: Potential Multiple pass of the same module.");
             tensors.insert(node->key, node->module->forward(tensors[node->input]));
         });
     }

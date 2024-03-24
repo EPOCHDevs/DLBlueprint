@@ -34,10 +34,10 @@ namespace dlb {
             if (value.IsScalar()) {
                 return value;
             } else if (value.IsSequence()) {
-                AssertIfTrue(value.size() == arraySize && i < arraySize, "Invalid arguments");
+                DL_AssertIfTrue(value.size() == arraySize && i < arraySize, "Invalid arguments");
                 return value[i];
             }
-            ThrowFromException(std::invalid_argument("node must be a scalar or sequence."));
+            DL_ThrowFromException(std::invalid_argument("node must be a scalar or sequence."));
         }
         return {};
     }

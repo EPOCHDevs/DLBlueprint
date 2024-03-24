@@ -33,7 +33,7 @@ namespace dlb {
         }
 
         RegistrySignature operator()(std::string const &name) const {
-            AssertIfTrueF(m_registry.contains(name), "registry does not contain {}.", name);
+            DL_AssertIfTrueF(m_registry.contains(name), "registry does not contain {}.", name);
             return m_registry.at(name);
         }
 

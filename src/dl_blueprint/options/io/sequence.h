@@ -15,7 +15,7 @@ namespace dlb {
             this->ValidateInputDim(3, inputShape);
             // currently assuming only batch_first
             this->ValidateBatchSize(batchSize, inputShape);
-            AssertIfTrue(inputShape[2] == this->impl.input_size(), "InvalidChannelSize");
+            DL_AssertIfTrue(inputShape[2] == this->impl.input_size(), "InvalidChannelSize");
         }
 
         Shape GetOutputSize(const dlb::Shape &inputShape) const final {

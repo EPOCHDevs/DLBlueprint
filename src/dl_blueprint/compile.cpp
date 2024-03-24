@@ -9,7 +9,7 @@ namespace dlb {
 
     std::unique_ptr<Blueprint> Build(const FeatureInput &inputShape,
                const YAML::Node &config) {
-        AssertIfTrue(config.size() == 1 && config.IsMap(), "only one root is permitted");
+        DL_AssertIfTrue(config.size() == 1 && config.IsMap(), "only one root is permitted");
         return std::make_unique<Blueprint>(
                 CompileNode(config.begin()->first.as<std::string>(), config.begin()->second, inputShape));
     }
@@ -18,7 +18,7 @@ namespace dlb {
                      const YAML::Node &node,
                      FeatureInput inputShape) {
         auto seqNode = node["<modules>"];
-        AssertIfTrueF(seqNode, "<modules> is a mandatory argument for any node: {}", moduleName);
+        DL_AssertIfTrueF(seqNode, "<modules> is a mandatory argument for any node: {}", moduleName);
 
         auto [shape, module] = CompileModule(moduleName, seqNode, inputShape);
         auto newNode = std::make_unique<NodeImpl>(module, moduleName, inputShape.back().key());

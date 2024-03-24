@@ -8,7 +8,7 @@
 #include <range/v3/all.hpp>
 
 
-template<class EnumClass> inline auto Parse(const char* str)
+template<class EnumClass> inline auto DL_Parse(const char* str)
 {
     std::map<EnumClass, std::string> stringEnum;
     std::map<std::string, EnumClass> enumAsString;
@@ -48,7 +48,7 @@ template<class EnumClass> inline auto Parse(const char* str)
 }
 
 
-#define CREATE_ENUM_COMMON(EnumClass, NumType, ...) \
+#define DL_CREATE_ENUM_COMMON(EnumClass, NumType, ...) \
     enum class EnumClass : NumType { __VA_ARGS__, Length }; \
     \
     struct EnumClass##Wrapper { \
@@ -56,14 +56,14 @@ template<class EnumClass> inline auto Parse(const char* str)
         static inline std::string ToString(EnumClass enumClass) { return stringEnum.at( enumClass); } \
         static inline EnumClass FromString(std::string const& enumClassAsString) { \
             auto enumAsStringIt = enumAsString.find(enumClassAsString); \
-            AssertIfFalse(enumAsStringIt == enumAsString.end(), fmt::format("{} is not a valid enum for {}", enumClassAsString, #EnumClass)); \
+            DL_AssertIfFalse(enumAsStringIt == enumAsString.end(), fmt::format("{} is not a valid enum for {}", enumClassAsString, #EnumClass)); \
             return enumAsStringIt->second; \
         } \
         static inline bool Is##EnumClass(std::string const& enumClassAsString) { return enumAsString.contains(enumClassAsString); } \
     private: \
         inline static std::map<EnumClass, std::string> stringEnum; \
         inline static std::map<std::string, EnumClass> enumAsString; \
-        void Initialize() const { std::tie(stringEnum, enumAsString) = Parse<EnumClass>(#__VA_ARGS__);  } \
+        void Initialize() const { std::tie(stringEnum, enumAsString) = DL_Parse<EnumClass>(#__VA_ARGS__);  } \
     }; \
     inline std::ostream& operator<<(std::ostream& os, EnumClass enumClass) { \
         os << EnumClass##Wrapper::ToString(enumClass); \
@@ -74,5 +74,5 @@ template<class EnumClass> inline auto Parse(const char* str)
     inline constexpr bool IsValid(EnumClass const& enumClass) { return enumClass != EnumClass##Null; }
 
 
-#define CREATE_ENUM(EnumClass, ...) CREATE_ENUM_COMMON(EnumClass, uint8_t, __VA_ARGS__)
-#define CREATE_ENUM_SIGNED(EnumClass, ...) CREATE_ENUM_COMMON(EnumClass, int8_t, __VA_ARGS__)
+#define DL_CREATE_ENUM(EnumClass, ...) DL_CREATE_ENUM_COMMON(EnumClass, uint8_t, __VA_ARGS__)
+#define DL_CREATE_ENUM_SIGNED(EnumClass, ...) DL_CREATE_ENUM_COMMON(EnumClass, int8_t, __VA_ARGS__)

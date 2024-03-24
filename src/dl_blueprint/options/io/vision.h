@@ -16,7 +16,7 @@ namespace dlb {
         void ValidateInputShape(int64_t batchSize, Shape const &inputShape) const final {
             this->ValidateInputDim(4, inputShape);
             this->ValidateBatchSize(batchSize, inputShape);
-            AssertIfTrue(inputShape[1] == this->impl.in_channels(), "InvalidChannelSize");
+            DL_AssertIfTrue(inputShape[1] == this->impl.in_channels(), "InvalidChannelSize");
         }
 
         Shape GetOutputSize(const dlb::Shape &inputShape) const final;
@@ -77,7 +77,7 @@ namespace dlb {
         void ValidateInputShape(int64_t batchSize, Shape const &inputShape) const final {
             dlb::ResNetOptions::ValidateInputDim(4, inputShape);
             dlb::ResNetOptions::ValidateBatchSize(batchSize, inputShape);
-            AssertIfTrue(inputShape[1] == 3, "InvalidChannelSize");
+            DL_AssertIfTrue(inputShape[1] == 3, "InvalidChannelSize");
         }
 
         Shape GetOutputSize(const dlb::Shape &inputShape) const final {

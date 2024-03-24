@@ -27,7 +27,7 @@ namespace dlb {
         }
 
         virtual void reset_state(int64_t batch_size) {
-            AssertIfFalse(has_state(), "ImplementationError: reset_state is not implemented for stateless module");
+            DL_AssertIfFalse(has_state(), "ImplementationError: reset_state is not implemented for stateless module");
         }
 
         virtual std::string GetName() const {

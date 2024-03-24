@@ -50,7 +50,7 @@ namespace dlb {
 
         torch::Tensor forward(const torch::Tensor &x) override {
             torch::Tensor result;
-            AssertIfTrueF(x.size(0) == m_batchSize, "{} != {}", x.size(0), m_batchSize);
+            DL_AssertIfTrueF(x.size(0) == m_batchSize, "{} != {}", x.size(0), m_batchSize);
             repackage_hidden();
             std::tie(result, hx) = m_model->forward(x, hx);
             return m_options.return_all_seq ? result : result.select(1, -1);
