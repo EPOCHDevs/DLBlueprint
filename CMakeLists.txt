@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.17)
 
-set(SAM_RESEARCH "$ENV{HOME}/SAMResearch"  CACHE PATH "SAM RESEARCH FOLDER")
-include(${SAM_RESEARCH}/shared_header.cmake)
-set(SR_LIBTORCH_CACHE "${SR_CACHE}/torch"  CACHE PATH "libtorch cache path")
+set(EPOCH_LAB "$ENV{HOME}/EpochLab"  CACHE PATH "SAM RESEARCH FOLDER")
+include(${EPOCH_LAB}/shared_header.cmake)
+set(EPOCH_LIBTORCH_CACHE "${EPOCH_LAB}/torch"  CACHE PATH "libtorch cache path")
 
 rapids_cuda_init_architectures(DLBlueprint)
 project(DLBlueprint LANGUAGES C CXX CUDA)
@@ -18,7 +18,7 @@ find_package(fmt REQUIRED )
 find_package(Boost REQUIRED )
 find_package(yaml-cpp REQUIRED)
 find_package(tl-ranges CONFIG REQUIRED)
-include(${SR_CMAKE}/get_libtorch.cmake)
+include(${EPOCH_CMAKE}/get_libtorch.cmake)
 
 add_subdirectory(src)
 
